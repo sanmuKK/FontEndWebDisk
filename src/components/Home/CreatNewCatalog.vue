@@ -46,13 +46,13 @@ export default {
             .post("/api/createCatalog", {
               catalogName: this.form.catalogName,
             })
-            .then(function (response) {
+            .then((response) => {
               console.log(response);
+              this.$emit("pageUpdate", 1);
             })
             .catch(function (error) {
               console.log(error);
             });
-          this.$emit("pageChange", 1);
         }
       });
     },

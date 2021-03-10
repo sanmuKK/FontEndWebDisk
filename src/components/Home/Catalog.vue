@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="5">
-        <creat-new-catalog @pageChange="pageChange"></creat-new-catalog>
+        <creat-new-catalog @pageUpdate="pageChange"></creat-new-catalog>
       </el-col>
       <el-col :span="19">
         <el-pagination
