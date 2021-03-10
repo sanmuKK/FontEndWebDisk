@@ -39,7 +39,7 @@
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <p>姓名: {{ scope.row.uploadUserName }}</p>
-            <p>ID: {{ scope.row.ownerUserId }}</p>
+            <p>ID: {{ scope.row.uploadUserId }}</p>
             <div slot="reference" class="name-wrapper">
               <el-tag size="medium">{{ scope.row.uploadUserName }}</el-tag>
             </div>
@@ -54,11 +54,9 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" @click="open(scope.row.id)"
-            >预览</el-button
-          >
-          <el-button size="mini" @click="pass(scope.row.id)">通过</el-button>
-          <el-button size="mini" type="danger" @click="del">删除</el-button>
+          <el-button size="mini" @click="open(scope.row.id)" type="primary">预览</el-button>
+          <el-button plain size="mini" @click="pass(scope.row.id)" type="primary">通过</el-button>
+          <el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -146,17 +144,32 @@ export default {
           console.log(error);
         });
     },
-    del() {
+    del(id) {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
-          this.$message({
-            type: "success",
-            message: "删除成功!",
-          });
+          this.$axios
+            .get("/api/adminDelFile", {
+              params: {
+                id: id,
+              },
+            })
+            .then((res) => {
+              if (res.data.code === 0) {
+                this.pageChange(1);
+                this.$message({
+                  type: "success",
+                  message: "删除成功!",
+                });
+              } else
+                this.$message({
+                  type: "info",
+                  message: "删除失败",
+                });
+            });
         })
         .catch(() => {
           this.$message({

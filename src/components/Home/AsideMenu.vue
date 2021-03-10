@@ -2,8 +2,6 @@
   <div>
     <el-menu
       default-active="1-1"
-      @open="handleOpen"
-      @close="handleClose"
       class="box1"
     >
       <el-submenu index="2">
@@ -16,6 +14,7 @@
             class="aside-group-item"
             index="1-1"
             style="margin-top: -14px"
+            @click="toCatalog"
             >图片</el-menu-item
           >
           <el-menu-item class="aside-group-item" index="1-2" disabled>文档</el-menu-item>
@@ -39,12 +38,9 @@
 export default {
   name: "AsideMenu",
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
+    toCatalog(){
+      this.$goRoute('/home/catalog')
+    }
   },
 };
 </script>

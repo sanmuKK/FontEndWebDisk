@@ -55,8 +55,8 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" @click="open(scope.row.id)">预览</el-button>
-          <el-button size="mini" @click="download(scope.row.id, scope.row.name)"
+          <el-button size="mini" @click="open(scope.row.id)" type="primary">预览</el-button>
+          <el-button plain size="mini" @click="download(scope.row.id, scope.row.name)" type="primary"
             >下载</el-button
           >
           <el-button size="mini" type="danger" @click="del(scope.row.id)"
@@ -100,7 +100,6 @@ export default {
         })
         .then(function (response) {
           if (response.data.code === 0) {
-            console.log(response.data.resourcesList);
             that.tableData = response.data.resourcesList;
             that.currentTotal = response.data.total;
             that.loading = false;

@@ -14,7 +14,6 @@
         ref="upload"
         :action="ip"
         :on-preview="handlePictureCardPreview"
-        :on-remove="handleRemove"
         :data="uploadData"
         :limit="3"
         :headers="token"
@@ -57,18 +56,19 @@ export default {
     };
   },
   methods: {
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
-      console.log(this.dialogImageUrl);
     },
     uploadFileList() {
       this.$refs.upload.submit();
       this.dialogFormVisible = false;
       this.$refs.upload.clearFiles();
+      this.$notify({
+        title: "成功",
+        message: "上传成功,请等待管理员审核",
+        type: "success",
+      });
     },
   },
 };
